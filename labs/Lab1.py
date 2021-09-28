@@ -31,7 +31,52 @@ home = str(Path.home()) # all other paths are relative to this path.
 # change home to where you are storing everything. Again. Not recommended.
 # -
 
-# **Exercise 1.** 
+# <a href="https://www.ncbi.nlm.nih.gov/projects/sviewer/?id=NC_004070.1&v=1088..2241&mk=1588:1741|oriC|">Genome</a>
+
+# !head {home}/csc-448-student/data/NC_004070.1_1088..2241.fa
+
+# **Exercise 1.** Write a function that computes the average length of a Yeast chromosome.
+
+# +
+from Bio import SeqIO
+
+fasta_sequences = SeqIO.parse(open(f"{home}/csc-448-student/data/GCF_000146045.2_R64_genomic.fna"),'fasta')
+s = 0
+l = 0
+chromosomes = []
+for fasta in fasta_sequences:
+    chromosomes.append(str(fasta.seq))
+    s += len(str(fasta.seq))
+    l += 1
+    #name, sequence = fasta.id, str(fasta.seq)
+s/l
+# -
+
+import Topic1_helper
+import pandas as pd
+ch = str(chromosomes[0])
+skews = pd.Series(Topic1_helper.skew(ch[:20000]))
+skews.plot.line();
+
+
+def gc_content(seq):
+    count = 0
+    for c in seq:
+        if c.lower() == "g" or c.lower() == "c":
+            count += 1
+    return count/len(seq)
+gc_content(ch)
+
+gc_content(ch[650:1791])
+
+gc_content(ch[6136:7136])
+
+gc_content(ch[7998:8548])
+
+
+# Confirmed	I-1	ARS102	proARS102	1	650	1791
+# Confirmed	I-7	ARS102.5	proARS103	1	6136	7136
+# Confirmed	I-8	ARS103	proARS103	1	7998	8548
 
 # + [markdown] slideshow={"slide_type": "subslide"} hideCode=false hidePrompt=false
 # **Exercise 1.**
