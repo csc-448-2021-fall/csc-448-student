@@ -14,16 +14,28 @@ jupyter:
 ---
 
 <!-- #region slideshow={"slide_type": "slide"} hideCode=false hidePrompt=false -->
-# Yeast Genome Origins of Replication
+# Origin of Genome Replication
+
+In this lab, we will:
+1. Verify that your solutions for exercises in Topic 1 are implemented correctly
+2. Extend these solutions
+3. Apply them to scenarios of both success and failure
 <!-- #endregion -->
+
+## Verifying solutions to Topic 1 are correct
+Please see Topic1 notebook for detailed information. You must copy Topic1_helper.py to this folder for these commands to work.
 
 ```python slideshow={"slide_type": "skip"} hideCode=false hidePrompt=false
 %load_ext autoreload
 %autoreload 2
 
 
-# Put all your solutions into Lab1_helper.py as this script which is autograded
+import pandas as pd
+import numpy as np
+
+# Put all your solutions into Lab1_helper.py as this is the script which is autograded
 import Lab1_helper 
+import Topic1_helper
 
 from pathlib import Path
 home = str(Path.home()) # all other paths are relative to this path. 
@@ -31,10 +43,67 @@ home = str(Path.home()) # all other paths are relative to this path.
 # change home to where you are storing everything. Again. Not recommended.
 ```
 
+```python
+Topic1_helper.count("ACAACTATGCATACTATCGGGAACTATCCT","ACTAT")
+```
+
+```python
+print(Topic1_helper.frequent_words("ACAACTATGCATACTATCGGGAACTATCCT",5))
+print(Topic1_helper.frequent_words("ACAACTATGCATACTATCGGGAACTATCCT",4))
+```
+
+```python
+Topic1_helper.reverse_complement("cagt")
+```
+
+```python
+text = "atcaatgatcaacgtaagcttctaagcatgatcaaggtgctcacacagtttatccacaacctgagtggatgacatcaagataggtcgttgtatctccttcctctcgtactctcatgaccacggaaagatgatcaagagaggatgatttcttggccatatcgcaatgaatacttgtgacttgtgcttccaattgacatcttcagcgccatattgcgctggccaaggtgacggagcgggattacgaaagcatgatcatggctgttgttctgtttatcttgttttgactgagacttgttaggatagacggtttttcatcactgactagccaaagccttactctgcctgacatcgaccgtaaattgataatgaatttacatgcttccgcgacgatttacctcttgatcatcgatccgattgaagatcttcaattgttaattctcttgcctcgactcatagccatgatgagctcttgatcatgtttccttaaccctctattttttacggaagaatgatcaagctgctgctcttgatcatcgtttc"
+freq_map = Topic1_helper.frequency_table(text,3)
+pd.Series(freq_map)
+```
+
+```python
+Topic1_helper.better_frequent_words(text,9)
+```
+
+```python
+data = pd.read_table("http://bioinformaticsalgorithms.com/data/realdatasets/Rearrangements/E_coli.txt",header=None)
+genome = data.values[0,0]
+skews = Topic1_helper.skew(genome)
+skews = pd.Series(Topic1_helper.skew(genome))
+skews
+```
+
+```python
+%matplotlib inline
+skews.plot.line();
+```
+
+## Moving past prokaryotic organisms
+
+We developed a bioinformatics algorithm that at a glance seems to detect origin sequences in a genome, but a closer inspection reveals that we have only tested this algorithm for a single prokaryotic organism. This *skew* algorithm will perform well on organisms with cirucular chromosomes, but what happens when we try it on an organism with linear chromosomes? Let's take a look at Yeast. 
+
+### Yeast Origin Database
+It is a difficult biological question when you consider more complicated genomes. Even genomes that are well studied such as Yeast. Here is a link to a database with origin sequences: 
+
+http://cerevisiae.oridb.org/search.php?chr=all&confirmed=true&likely=true&dubious=true&name= 
+
+Notice anything? I notice the number of confirmed and likely origin locations on each chromosome. Oh yeah. We are now dealing with multiple chromosomes as well of course. Let's see how our algorithm does on this data. 
+
+This is a good time to talk about file formats. Bioinformatics loves file formats and they often are not everything we would desire. A common sequence format is called a FASTA file. I have downloaded the Yeast genome for us, and we can take a look at the top:
+
+```python
+!head {home}/csc-448-student/data/GCF_000146045.2_R64_genomic.fna
+```
+
 <a href="https://www.ncbi.nlm.nih.gov/projects/sviewer/?id=NC_004070.1&v=1088..2241&mk=1588:1741|oriC|">Genome</a>
 
 ```python
-!head {home}/csc-448-student/data/NC_004070.1_1088..2241.fa
+
+```
+
+```python
+!head {home}/csc-448-student/data/
 ```
 
 **Exercise 1.** Write a function that computes the average length of a Yeast chromosome.
@@ -42,7 +111,7 @@ home = str(Path.home()) # all other paths are relative to this path.
 ```python
 from Bio import SeqIO
 
-fasta_sequences = SeqIO.parse(open(f"{home}/csc-448-student/data/GCF_000146045.2_R64_genomic.fna"),'fasta')
+fasta_sequences = SeqIO.parse(open(f"{home}/csc-448-student/data/NC_004070.1_1088..2241.fa"),'fasta')
 s = 0
 l = 0
 chromosomes = []
@@ -51,14 +120,14 @@ for fasta in fasta_sequences:
     s += len(str(fasta.seq))
     l += 1
     #name, sequence = fasta.id, str(fasta.seq)
-s/l
+l,s/l
 ```
 
 ```python
 import Topic1_helper
 import pandas as pd
 ch = str(chromosomes[0])
-skews = pd.Series(Topic1_helper.skew(ch[:20000]))
+skews = pd.Series(Topic1_helper.skew(ch))
 skews.plot.line();
 ```
 
