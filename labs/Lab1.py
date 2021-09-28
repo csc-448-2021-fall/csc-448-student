@@ -81,6 +81,10 @@ skews.plot.line();
 
 # !head {home}/csc-448-student/data/GCF_000146045.2_R64_genomic.fna
 
+# The first line showing the name of the chromosome (but could be anything) begins with a ``>`` sign. If we look through the file, we will find a few of these lines, which means that this file actually contains multiple sequences (in this case multiple chromosomes).
+
+# !grep chromosome {home}/csc-448-student/data/GCF_000146045.2_R64_genomic.fna
+
 # <a href="https://www.ncbi.nlm.nih.gov/projects/sviewer/?id=NC_004070.1&v=1088..2241&mk=1588:1741|oriC|">Genome</a>
 
 
