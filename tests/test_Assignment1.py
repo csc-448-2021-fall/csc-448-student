@@ -3,13 +3,13 @@ sys.path.append(".")
 
 # Import the student solutions
 import Topic1_helper
-import Lab1_helper
+import Assignment1_helper
 
 import pathlib
 DIR=pathlib.Path(__file__).parent.absolute()
 
 import joblib
-answers = joblib.load(str(DIR)+"/answers_Lab1.joblib")
+answers = joblib.load(str(DIR)+"/answers_Assignment1.joblib")
 
 import pandas as pd
 data = pd.read_table("http://bioinformaticsalgorithms.com/data/realdatasets/Rearrangements/E_coli.txt",header=None)
@@ -38,7 +38,7 @@ def test_exercise_6():
     assert Topic1_helper.skew(genome) == answers["answer_exercise_6"]
     
 def test_exercise_7():
-    headers,sequences = Lab1_helper.read_fasta(file)
+    headers,sequences = Assignment1_helper.read_fasta(file)
     c = 0
     for seq in sequences:
         c += len(seq)

@@ -16,7 +16,7 @@
 # + [markdown] slideshow={"slide_type": "slide"} hideCode=false hidePrompt=false
 # # Origin of Genome Replication
 #
-# In this lab, we will:
+# In this assignment, we will:
 # 1. Verify that your solutions for exercises in Topic 1 are implemented correctly
 # 2. Extend these solutions
 # 3. Apply them to scenarios of both success and failure
@@ -33,8 +33,8 @@
 import pandas as pd
 import numpy as np
 
-# Put all your solutions into Lab1_helper.py as this is the script which is autograded
-import Lab1_helper 
+# Put all your solutions into Assignment1_helper.py as this is the script which is autograded
+import Assignment1_helper 
 import Topic1_helper
 
 from pathlib import Path
@@ -89,7 +89,7 @@ skews.plot.line();
 # **Exercise 7.** Write a function that reads in the sequences in a FASTA file. You must handle the newlines and the headers.
 
 file = f"{home}/csc-448-student/data/GCF_000146045.2_R64_genomic.fna"
-headers,sequences = Lab1_helper.read_fasta(file)
+headers,sequences = Assignment1_helper.read_fasta(file)
 headers
 
 pd.Series(sequences)

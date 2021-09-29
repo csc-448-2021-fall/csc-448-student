@@ -16,7 +16,7 @@ jupyter:
 <!-- #region slideshow={"slide_type": "slide"} hideCode=false hidePrompt=false -->
 # Origin of Genome Replication
 
-In this lab, we will:
+In this assignment, we will:
 1. Verify that your solutions for exercises in Topic 1 are implemented correctly
 2. Extend these solutions
 3. Apply them to scenarios of both success and failure
@@ -33,8 +33,8 @@ Please see Topic1 notebook for detailed information. You must copy Topic1_helper
 import pandas as pd
 import numpy as np
 
-# Put all your solutions into Lab1_helper.py as this is the script which is autograded
-import Lab1_helper 
+# Put all your solutions into Assignment1_helper.py as this is the script which is autograded
+import Assignment1_helper 
 import Topic1_helper
 
 from pathlib import Path
@@ -108,7 +108,7 @@ The other thing you will notice is that the sequence is actually broken up over 
 
 ```python
 file = f"{home}/csc-448-student/data/GCF_000146045.2_R64_genomic.fna"
-headers,sequences = Lab1_helper.read_fasta(file)
+headers,sequences = Assignment1_helper.read_fasta(file)
 headers
 ```
 
