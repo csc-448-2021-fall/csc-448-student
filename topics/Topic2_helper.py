@@ -1,20 +1,12 @@
-def greedy_lcs(s1,s2,seed=0):
-    random.seed(seed)
+def greedy_lcs(s1,s2):
     lcs = ""
     # YOUR SOLUTION HERE
     return lcs
 
-import random
-
-def random_action(s1,s2):
-    assert len(s1) > 0 and len(s2) > 0
-    choices = [(s1[1:],s2[1:]),(s1[1:],s2), (s1,s2[1:])]
-    return random.choice(choices)
-
-def greedy_alignment(s1,s2,seed=0):
-    random.seed(seed)
+def greedy_alignment(s1,s2):
     s1_new = ""
     s2_new = ""
+    # YOUR SOLUTION HERE
     return "\n".join([s1_new,s2_new])
 
 import numpy as np

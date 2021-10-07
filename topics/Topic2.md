@@ -55,7 +55,25 @@ Why is it so important to us?
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
-Mohamed Marahiel conjectured that since A-domains of protins (adenylation domains) have the same function (i.e., adding an amino acid to the growing peptide), different A-domains should have similar parts. Each A-domain is about 500 amino acids long and is responsible for adding a single amino acid.
+### Detour: Central Dogma
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Extended_Central_Dogma_with_Enzymes.jpg/550px-Extended_Central_Dogma_with_Enzymes.jpg" width=800>
+<!-- #endregion -->
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+### Detour: Ribosome
+
+Ribosomes are macromolecular machines, found within all living cells, that perform biological protein synthesis (translation).
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Peptide_syn.svg/2560px-Peptide_syn.svg.png" width=600>
+<!-- #endregion -->
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+## Mohamed Marahiel
+
+Marahiel conjectured that since A-domains of proteins (adenylation domains) have the same function (i.e., adding an amino acid to the growing peptide), different A-domains should have similar parts. 
+
+Each A-domain is about 500 amino acids long and is responsible for adding a single amino acid.
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
@@ -85,7 +103,17 @@ Now that is getting better, and the number of conserved columns is going up!
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
-It turns out that the red columns represent the conserved core shared by many A-domains. Now that Marahiel knew how to correctly align the A-domains, he hypothesized that some of the remaining variable columns should code for Asp, Orn, and Val. He discovered that the non-ribosomal code is defined by 8 amino acid-long non-ribosomal signatures, which are shown as purple columns below.
+### Detour: Non-ribosomal code
+
+The nonribosomal code refers to key amino acid residues and position in an adenylation domain of a nonribosomal peptide (sequence of amino acids).
+
+This code is used to predict substrate specificity and thus (partially) the final product.
+
+i.e., this sequence is important.
+<!-- #endregion -->
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
+It turns out that the red columns represent the conserved core shared by many A-domains. Now that Marahiel knew how to correctly align the A-domains, he discovered that the non-ribosomal code is defined by 8 amino acid-long non-ribosomal signatures, which are shown as purple columns below.
 
 <img src="http://bioinformaticsalgorithms.com/images/Alignment/A_domain_6.png" width=2000>
 <!-- #endregion -->
@@ -105,9 +133,9 @@ So the book has a very interesting introduction to this topic, but I would say t
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
-## Our life this lab/lecture
+## Our life this topic/lecture
 
-<img src="https://raw.githubusercontent.com/gregcaporaso/An-Introduction-To-Applied-Bioinformatics/master/book/fundamentals/images/alignment.png">
+<img src="https://raw.githubusercontent.com/gregcaporaso/An-Introduction-To-Applied-Bioinformatics/master/book/fundamentals/images/alignment.png" width=500>
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
@@ -142,6 +170,10 @@ At each turn, you have two choices
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
+**Note:** We are going to introduce some simple greedy approaches that are not optimal in any sense, but they provide a good way to introduce some of the mechanics here.
+<!-- #endregion -->
+
+<!-- #region slideshow={"slide_type": "subslide"} -->
 ### Greedy approach
 Let's say that we want to take a greedy approach to alignment. Meaning we will only consider the choice in front of us. Example:
 
@@ -150,13 +182,15 @@ s1=AACCTTGG
 s2=ACACTGTGA
 </pre>
 
-For each move in the game: 
-    * if s1[0] == s2[0], then add s1[0] to the longest common subsequence. 
-    * else randomly choose to either remove s1[0], s2[0], or both s1[0] and s2[0]
+For each move in the game (ix1=ix2=0): 
+* if s1[ix1] == s2[ix2], then add s1[ix2] to the longest common subsequence and increment ix1 and ix2
+* elif len(s1)-ix1 > len(s2)-ix2, then assume there is a gap in s2 since it is shorter and  increment ix1
+* elif len(s2)-ix2 > len(s1)-ix1, then assume there is a gap in s1 since it is shorter and increment ix2
+* otherwise assume this is a mismatch and increment ix1 and ix2
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
-**Exercise 1** Use a greedy approach to return suboptimal (or optimal) solutions to the longest common subsequence problem.
+**Exercise 1** Use a greedy approach to return suboptimal (or by chance an optimal) solution to the longest common subsequence problem.
 
 Find a longest common subsequence of two strings
 
@@ -167,10 +201,9 @@ Output: A longest common subsequence of these strings
 
 ```python slideshow={"slide_type": "subslide"}
 
-print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=0))
-print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=100))
-print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=1000))
-print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=2000))
+print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA"))
+
+print(Topic2_helper.greedy_lcs("AACCTTGG","ACAC"))
 ```
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
@@ -181,13 +214,9 @@ Well... That was easy to implement, but the longest common subsequence is AACTGG
 
 ```python slideshow={"slide_type": "subslide"}
 
-print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=0))
+print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA"))
 print()
-print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=100))
-print()
-print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=1000))
-print()
-print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=2000))
+print(Topic2_helper.greedy_alignment("AACCTTGG","ACAC"))
 ```
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
@@ -197,10 +226,8 @@ When consider both nucleotide sequences and amino acid sequences (different alph
 **But how do we find the optimal solution which is by definition the longest common subsequence?** Let's not worry about that for a moment and remind ourselves of dynamic programming and recurrance relations.
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
-I'll put you in breakout rooms. Watch this video and then take 5 minutes to come up with a list of questions comments. Share your document in csc448 channel on Slack. I'll ask for 3-5 volunteer groups (or call on folks).
-
-<a href="https://calpoly.zoom.us/rec/share/JJuZX1D7bafCY6c07TcoHrcsOU1qA1OZ2MtEsG3qjQafOWvZKPAplPUk0i4m3kZ2.AfbmDJm0Pn2EROgL">Video from Dr. Davidson - Passcode: 7+bK*8Fv</a>
+<!-- #region slideshow={"slide_type": "subslide"} -->
+This is a good time to watch the video by Dr. Davidson: <a href="https://calpoly.zoom.us/rec/play/hBXW5q4PtZy3kYcX6V_Uh8hKyeh3Y2Juo2UVlNnINYrEOPr2B3eA8nw4thx8dmKc1Olp3rOuZj9g5yOo.kzObI8yIb3CvB-AY?startTime=1633451337000&_x_zm_rtaid=bQcfpnQASSqA5m-pwUWcPA.1633475641251.31fa1bec4ed96897fe3c7dc2c9f5cad1&_x_zm_rhtaid=658">The Bio of Bioinformatics</a>
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "slide"} -->
@@ -475,6 +502,10 @@ print(s2_aligned)
 ```python
 
 ```
+
+
+
+
 
 
 

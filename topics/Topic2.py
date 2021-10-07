@@ -50,7 +50,23 @@ home = str(Path.home()) # all other paths are relative to this path.
 # Why is it so important to us?
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# Mohamed Marahiel conjectured that since A-domains of protins (adenylation domains) have the same function (i.e., adding an amino acid to the growing peptide), different A-domains should have similar parts. Each A-domain is about 500 amino acids long and is responsible for adding a single amino acid.
+# ### Detour: Central Dogma
+#
+# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Extended_Central_Dogma_with_Enzymes.jpg/550px-Extended_Central_Dogma_with_Enzymes.jpg" width=800>
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# ### Detour: Ribosome
+#
+# Ribosomes are macromolecular machines, found within all living cells, that perform biological protein synthesis (translation).
+#
+# <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Peptide_syn.svg/2560px-Peptide_syn.svg.png" width=600>
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# ## Mohamed Marahiel
+#
+# Marahiel conjectured that since A-domains of proteins (adenylation domains) have the same function (i.e., adding an amino acid to the growing peptide), different A-domains should have similar parts. 
+#
+# Each A-domain is about 500 amino acids long and is responsible for adding a single amino acid.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # Taking 3 common A-domains and putting them down one after another, there are only three conserved columns (shown in red below) are common to the three sequences and have likely arisen by pure chance:
@@ -74,7 +90,16 @@ home = str(Path.home()) # all other paths are relative to this path.
 # Now that is getting better, and the number of conserved columns is going up!
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# It turns out that the red columns represent the conserved core shared by many A-domains. Now that Marahiel knew how to correctly align the A-domains, he hypothesized that some of the remaining variable columns should code for Asp, Orn, and Val. He discovered that the non-ribosomal code is defined by 8 amino acid-long non-ribosomal signatures, which are shown as purple columns below.
+# ### Detour: Non-ribosomal code
+#
+# The nonribosomal code refers to key amino acid residues and position in an adenylation domain of a nonribosomal peptide (sequence of amino acids).
+#
+# This code is used to predict substrate specificity and thus (partially) the final product.
+#
+# i.e., this sequence is important.
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# It turns out that the red columns represent the conserved core shared by many A-domains. Now that Marahiel knew how to correctly align the A-domains, he discovered that the non-ribosomal code is defined by 8 amino acid-long non-ribosomal signatures, which are shown as purple columns below.
 #
 # <img src="http://bioinformaticsalgorithms.com/images/Alignment/A_domain_6.png" width=2000>
 
@@ -91,9 +116,9 @@ home = str(Path.home()) # all other paths are relative to this path.
 # * These differences may be due to mutations that change a symbol (nucleotide or amino acid) for another or insertions / deletions, indels, which insert or delete a symbol in the corresponding sequence.
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# ## Our life this lab/lecture
+# ## Our life this topic/lecture
 #
-# <img src="https://raw.githubusercontent.com/gregcaporaso/An-Introduction-To-Applied-Bioinformatics/master/book/fundamentals/images/alignment.png">
+# <img src="https://raw.githubusercontent.com/gregcaporaso/An-Introduction-To-Applied-Bioinformatics/master/book/fundamentals/images/alignment.png" width=500>
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ## An important distinction (and a biologist will correct you every time)
@@ -124,6 +149,9 @@ home = str(Path.home()) # all other paths are relative to this path.
 # 2. You can remove the first symbol from either of the two sequences in which case you earn no points, but you may set yourself up to earn more points later. 
 
 # + [markdown] slideshow={"slide_type": "subslide"}
+# **Note:** We are going to introduce some simple greedy approaches that are not optimal in any sense, but they provide a good way to introduce some of the mechanics here.
+
+# + [markdown] slideshow={"slide_type": "subslide"}
 # ### Greedy approach
 # Let's say that we want to take a greedy approach to alignment. Meaning we will only consider the choice in front of us. Example:
 #
@@ -132,12 +160,14 @@ home = str(Path.home()) # all other paths are relative to this path.
 # s2=ACACTGTGA
 # </pre>
 #
-# For each move in the game: 
-#     * if s1[0] == s2[0], then add s1[0] to the longest common subsequence. 
-#     * else randomly choose to either remove s1[0], s2[0], or both s1[0] and s2[0]
+# For each move in the game (ix1=ix2=0): 
+# * if s1[ix1] == s2[ix2], then add s1[ix2] to the longest common subsequence and increment ix1 and ix2
+# * elif len(s1)-ix1 > len(s2)-ix2, then assume there is a gap in s2 since it is shorter and  increment ix1
+# * elif len(s2)-ix2 > len(s1)-ix1, then assume there is a gap in s1 since it is shorter and increment ix2
+# * otherwise assume this is a mismatch and increment ix1 and ix2
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Exercise 1** Use a greedy approach to return suboptimal (or optimal) solutions to the longest common subsequence problem.
+# **Exercise 1** Use a greedy approach to return suboptimal (or by chance an optimal) solution to the longest common subsequence problem.
 #
 # Find a longest common subsequence of two strings
 #
@@ -147,10 +177,9 @@ home = str(Path.home()) # all other paths are relative to this path.
 
 # + slideshow={"slide_type": "subslide"}
 
-print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=0))
-print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=100))
-print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=1000))
-print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=2000))
+print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA"))
+
+print(Topic2_helper.greedy_lcs("AACCTTGG","ACAC"))
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # Well... That was easy to implement, but the longest common subsequence is AACTGG, so we did not really solve the problem. Before we move on though, let's modify our algorithm so it returns the alignment (i.e., with indels and mutations).
@@ -159,13 +188,9 @@ print(Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=2000))
 
 # + slideshow={"slide_type": "subslide"}
 
-print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=0))
+print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA"))
 print()
-print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=100))
-print()
-print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=1000))
-print()
-print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=2000))
+print(Topic2_helper.greedy_alignment("AACCTTGG","ACAC"))
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ## Why do we have mismatches in our alignment? Why not just gaps?
@@ -173,10 +198,8 @@ print(Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=2000))
 #
 # **But how do we find the optimal solution which is by definition the longest common subsequence?** Let's not worry about that for a moment and remind ourselves of dynamic programming and recurrance relations.
 
-# + [markdown] slideshow={"slide_type": "slide"}
-# I'll put you in breakout rooms. Watch this video and then take 5 minutes to come up with a list of questions comments. Share your document in csc448 channel on Slack. I'll ask for 3-5 volunteer groups (or call on folks).
-#
-# <a href="https://calpoly.zoom.us/rec/share/JJuZX1D7bafCY6c07TcoHrcsOU1qA1OZ2MtEsG3qjQafOWvZKPAplPUk0i4m3kZ2.AfbmDJm0Pn2EROgL">Video from Dr. Davidson - Passcode: 7+bK*8Fv</a>
+# + [markdown] slideshow={"slide_type": "subslide"}
+# This is a good time to watch the video by Dr. Davidson: <a href="https://calpoly.zoom.us/rec/play/hBXW5q4PtZy3kYcX6V_Uh8hKyeh3Y2Juo2UVlNnINYrEOPr2B3eA8nw4thx8dmKc1Olp3rOuZj9g5yOo.kzObI8yIb3CvB-AY?startTime=1633451337000&_x_zm_rtaid=bQcfpnQASSqA5m-pwUWcPA.1633475641251.31fa1bec4ed96897fe3c7dc2c9f5cad1&_x_zm_rhtaid=658">The Bio of Bioinformatics</a>
 
 # + [markdown] slideshow={"slide_type": "slide"}
 # # An Introduction to Dynamic Programming: The Change Problem
@@ -415,6 +438,10 @@ print(s2_aligned)
 
 
 
+#
+#
+#
+#
 #
 #
 #
