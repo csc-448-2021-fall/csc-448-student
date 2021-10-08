@@ -2,6 +2,7 @@ import sys
 sys.path.append(".")
 
 # Import the student solutions
+import Topic1_helper
 import Assignment2_helper
 
 import pathlib
@@ -12,25 +13,25 @@ answers = joblib.load(str(DIR)+"/answers_Assignment2.joblib")
 print("Keys",answers.keys())
 
 def test_exercise_1():
-    assert Assignment2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=1000) == answers['answer_exercise_1']
+    assert Topic2_helper.greedy_lcs("AACCTTGG","ACACTGTGA",seed=1000) == answers['answer_exercise_1']
 
 def test_exercise_2():
-    assert Assignment2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=1000) == answers['answer_exercise_2']
+    assert Topic2_helper.greedy_alignment("AACCTTGG","ACACTGTGA",seed=1000) == answers['answer_exercise_2']
 
 def test_exercise_3():
-    assert Assignment2_helper.min_num_coins(27,[6,5,1]) == answers['answer_exercise_3']
+    assert Topic2_helper.min_num_coins(27,[6,5,1]) == answers['answer_exercise_3']
 
 def test_exercise_4():
-    assert Assignment2_helper.min_num_coins_dynamic(27,[6,5,1]) == answers['answer_exercise_4']
+    assert Topic2_helper.min_num_coins_dynamic(27,[6,5,1]) == answers['answer_exercise_4']
 
 def test_exercise_5():
-    assert Assignment2_helper.align("AACCT","ACACTG") == answers['answer_exercise_5']
+    assert Topic2_helper.align("AACCT","ACACTG") == answers['answer_exercise_5']
 
 def test_exercise_6():
-    assert Assignment2_helper.align_dynamic("AACCT","ACACTG") == answers['answer_exercise_6']
+    assert Topic2_helper.align_dynamic("AACCT","ACACTG") == answers['answer_exercise_6']
 
 def test_exercise_7():
-    assert Assignment2_helper.align_dynamic2("AACCT","ACACTG") == answers['answer_exercise_7']
+    assert Topic2_helper.align_dynamic2("AACCT","ACACTG") == answers['answer_exercise_7']
 
 def test_exercise_8():
     s1="CGCAACCACAGCGCGCAGGGCAGGCGCGAGCTGTCTGAGCCCCGGCCTCGGACCGCCCACTGGACTCCCGGCACGCCCGGTGCCGCCTTCCGGCTCCAGTCCCCC"
