@@ -2,7 +2,7 @@ import sys
 sys.path.append(".")
 
 # Import the student solutions
-import Topic1_helper
+import Topic2_helper
 import Assignment2_helper
 
 import pathlib
