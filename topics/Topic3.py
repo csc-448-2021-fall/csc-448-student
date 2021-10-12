@@ -17,7 +17,7 @@
 # + [markdown] slideshow={"slide_type": "slide"}
 # # Topic 3 - Genome Assembly
 # ## Graph Algorithms
-# Material and embedded lab.
+# Material and embedded exercises.
 #
 # Motivation and some exercises are variations on those available in Bioinformatics Algorithms: An Active-Learning Approach by Phillip Compeau & Pavel Pevzner.
 
@@ -27,6 +27,8 @@
 # * Apply, analyze, and evaluate genome sequence alignment graph based algorithms
 
 # + slideshow={"slide_type": "skip"}
+# %load_ext autoreload
+# %autoreload 2
 
 # + [markdown] slideshow={"slide_type": "slide"}
 # # History and motivation
@@ -198,6 +200,54 @@ composition(3,"TATGGGGTGC")
 # https://calpoly.zoom.us/rec/share/PBxQoxqNsGMdR0l3jccQlSopZpuEyM_4hpU19FjbRJHO6VNmoI8BLgQKum1Z_HXi.fp9FrRd2-4fakeRV 
 #
 # Passcode: Sg7.^4XU
+# -
+
+# ## Seven Bridge of Konigsberg
+#
+# <img src="https://bitnine.net/wp-content/uploads/2016/07/20160713_3.jpg">
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# **A resident asks:** Can I set out from my home and cross each bridge once and return home at the end?
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# Since you know a graph algorithm is coming, how would you represent the above as a graph?
+
+# + [markdown] slideshow={"slide_type": "fragment"}
+# Answer: colors as nodes or vertices and bridges as edges.
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# In comes the father of graph theory: Leonhard Euler. 
+#
+# Graphs have edges and vertices. 
+#
+# This is not a graph today:
+#
+# <img src="https://www.betterevaluation.org/sites/default/files/scatterplot2.gif" width=200>
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# <img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fnbt.2023/MediaObjects/41587_2011_Article_BFnbt2023_Fig1_HTML.gif">
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# **Hamiltonian Paths and Cycles:**
+#
+# > Hamiltonian path is a path in an undirected or directed graph that visits each vertex exactly once. A Hamiltonian cycle is a Hamiltonian path that is a cycle. Determining whether such paths and cycles exist in graphs is the Hamiltonian path problem, which is NP-complete. - https://en.wikipedia.org/wiki/Hamiltonian_path
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# **How does this relate to bioinformatics?**
+#
+# For years bioinformaticians came up with heuristic/approximate algorithms for finding Hamiltonian paths and cycles in order to perform genome assembly. But it is a NP-complete problem.
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# **After moderate but hard won success the field realized that there was another way...**
+#
+# And that is where are Bridges of Konigsberg comes into play.
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# A **Eulerian cycle** is a cycle that visits each edge once but does not matter how many times a vertices or edge is visited.
+#
+# Big difference is that you can visit a vertices more than once. This seemingly small difference has a dramatic affect on the computability of genome assembly.
+#
+# The way Euler came up with an algorithm to determine if a Eulerian cycle exists, he came up with a method for finding them. 
 
 # + [markdown] slideshow={"slide_type": "slide"}
 # ## String Reconstruction: A reverse approach/order from the book
@@ -296,8 +346,12 @@ to_adj(dB)
 # We now have step 1 completed. The next step is to find the Eulerian path, but we will start by talking about and finding Eulerian cycles. More undefined words! Don't forget. For a different bottom up approach (we are taking top down in this lab), then see the textbook. 
 #
 # A Eulerian path is a path in a graph traversing each edge of a graph exactly once. A cycle that traverses each edge of a graph exactly once is called an Eulerian cycle.
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# The book works in a lot more detail, but I will boil it down to what I view are the essentials.
 #
-# The book works in a lot more detail, but if we assume an arbitrary directed graph is balanced (in-degree of each node is equal to out-degree) and it is strongly connected, then we can find the Eulerian cycle by just walking around! We just need to make sure we always leave out of a different edge.
+# If we assume an arbitrary directed graph is balanced (in-degree of each node is equal to out-degree) and it is strongly connected
+# * Then we can find the Eulerian cycle by just walking around! We just need to make sure we always leave out of a different edge.
 #
 
 # + [markdown] slideshow={"slide_type": "subslide"}
