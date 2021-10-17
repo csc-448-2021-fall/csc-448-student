@@ -8,7 +8,7 @@ import pathlib
 DIR=pathlib.Path(__file__).parent.absolute()
 
 import joblib
-answers = joblib.load(str(DIR)+"/answers_Lab3.joblib")
+answers = joblib.load(str(DIR)+"/answers_Assignment3.joblib")
 print("Keys",answers.keys())
 
 import numpy as np
