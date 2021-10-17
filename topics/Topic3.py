@@ -461,6 +461,11 @@ def reconstruct(kmers):
     
 kmers = ["CTTA","ACCA","TACC","GGCT","GCTT","TTAC"]
 reconstruct(kmers)
+# -
+
+kmers = ['AAT','ATG','ATG','ATG','CAT','CCA','GAT','GCC','GGA','GGG','GTT','TAA','TGC','TGG','TGT']
+de_bruijn(kmers)
+show(dB)
 
 # + slideshow={"slide_type": "skip"}
 # Don't forget to push!
