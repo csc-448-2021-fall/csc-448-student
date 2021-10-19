@@ -24,10 +24,6 @@
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ## Assignments for week
 # * Labs and keep on making progress on the project (keep up the good work)!
-#
-# ## Other announcements
-# * Slides from Monday. Questions?
-# * Extension labs are coming Week 10, so don't cut corners on these strength building labs
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ## Slack ice breaker
