@@ -32,19 +32,21 @@
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ## Slack ice breaker
 # Best meal you've ever eaten?
-# -
 
+# + [markdown] slideshow={"slide_type": "subslide"}
 # ## Prelude
 #
-# There are so many ways we could slice and dice this chapter. Fundamentally, we've got a lot of different angles. We could approach this chapter from a biological and biochemical perspective and focus on the chemsitry and biology necessary to perform transcriptomics. Or we could dive into the statistical approaches necessary to accurately quantify gene expression values. Or we could focus more on alignment algorithms that power the heart of this analysis. We could also focus on the problem beginning at a gene expression values and then focus on algorithms that analyze data. We are going to try to strick a balance in the following order:
-# 1. Discuss some of the biochemistry that makes this possible
+# There are so many ways we could slice and dice this chapter. Fundamentally, we've got a lot of different angles. We could approach this chapter from a biological and biochemical perspective and focus on the chemsitry and biology necessary to perform transcriptomics. Or we could dive into the statistical approaches necessary to accurately quantify gene expression values. Or we could focus more on alignment algorithms that power the heart of this analysis. We could also focus on the problem beginning at a gene expression values and then focus on algorithms that analyze data. We are going to try to strike a balance in the following order:
+# 1. Discuss some of the biochemistry that makes modern sequencing possible
 # 2. Discuss some of the different ways scientists investigate what is going on inside a cell
 # 3. Discuss the clustering algorithms that are the first lines of the analysis
 
+# + [markdown] slideshow={"slide_type": "subslide"}
 # ## Illumina Sequencing
 #
 # <a href="https://www.youtube.com/watch?v=womKfikWlxM&ab_channel=Illumina">Click here for video</a>
 
+# + [markdown] slideshow={"slide_type": "subslide"}
 # <img src="https://edu.t-bio.info/wp-content/uploads/2020/01/Molecular-Data-Cascade.jpg">
 
 # + [markdown] slideshow={"slide_type": "slide"}
@@ -64,10 +66,25 @@
 # ## What's all this about yeast and wine?
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# The species of yeast that we will consider in this chapter is Saccharomyces cerevisiae, which **can brew wine because it converts the glucose found in fruit into ethanol**. We will therefore begin with a simple question: if S. cerevisiae often lives on grapevines, **why must crushed grapes be stored in tightly sealed barrels in order to make wine?**
+# The species of yeast that we will consider in this chapter is Saccharomyces cerevisiae. Why?
+
+# + [markdown] slideshow={"slide_type": "fragment"}
+# **It can brew wine because it converts the glucose found in fruit into ethanol**
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# **Our question:**<br>
 #
-# Once its supply of glucose runs out, S. cerevisiae must do something to survive. It therefore inverts its metabolism, with the ethanol that it just produced becoming its new food supply. This metabolic inversion, called the diauxic shift, can only occur in the presence of oxygen. Without oxygen, S. cerevisiae hibernates until either glucose or oxygen becomes available. In other words, if winemakers don’t seal their barrels, then the yeast in the barrel will metabolize the ethanol that it just produced, ruining the wine.
+# If S. cerevisiae often lives on grapevines, **why must crushed grapes be stored in tightly sealed barrels in order to make wine?
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# * If the supply of glucose runs out, S. cerevisiae must do something to survive
+# * It will then invert its metabolism, with the ethanol (alcohol) that it just produced becoming its new food supply. 
+# * This metabolic inversion, called the diauxic shift, can only occur in the presence of oxygen. 
+# * Without oxygen, S. cerevisiae hibernates until either glucose or oxygen becomes available. 
 #
+# In conclusion, if winemakers don’t seal their barrels, then the yeast in the barrel will metabolize the ethanol that it just produced, ruining the wine.
+
+# + [markdown] slideshow={"slide_type": "subslide"}
 # The diauxic shift is a complex process that affects the expression of many genes. 
 
 # + [markdown] slideshow={"slide_type": "slide"}
@@ -96,9 +113,7 @@ alt.Chart(plot_df).mark_line().encode(
 )
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Exercise 1.** What is the interpretation of this plot?
-#
-# Take 5 minutes in a breakout room, and then let's come back together.
+# **Stop and think:** What is the interpretation of this plot?
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ### YOUR SOLUTION HERE
@@ -110,9 +125,7 @@ alt.Chart(plot_df).mark_line().encode(
 df.shape
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Exercise 2.** Considering the dataset above and what you now know about clustering, what questions could you ask?
-#
-# Take 5 minutes in a breakout room, and then let's come back together.
+# **Stop and think:** Considering the dataset above and what you now know about clustering, what questions could you ask?
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ### YOUR SOLUTION HERE
@@ -135,7 +148,7 @@ alt.Chart(plot_df).mark_line().encode(
 )
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Exercise 3:** What is a good guess on a good ``k`` value?
+# **Stop and think:** What are your observations about this graph?
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ### YOUR SOLUTION HERE
@@ -163,6 +176,9 @@ alt.Chart(plot_df).mark_line().encode(
     color='ORF'
 )
 
+# + [markdown] slideshow={"slide_type": "subslide"}
+# **Stop and think:** Now that you know about k-means clustering, what is a good $k$ value?
+
 # + slideshow={"slide_type": "subslide"}
 # our standard imports
 import numpy as np
@@ -171,29 +187,29 @@ import pandas as pd
 from sklearn.cluster import KMeans
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Exercise 4:** Using your k value, cluster the genes using k-means. You may use sklearn's version of kmeans. Color the plot above using your clusters.
-
-# + [markdown] slideshow={"slide_type": "subslide"}
-# ### Note to move to board and explain sklearn
+# **Exercise 1:** Using your k value, cluster the genes using k-means. You may use sklearn's version of kmeans. Color the plot above using your clusters.
 
 # + slideshow={"slide_type": "subslide"}
-clusterer = KMeans(n_clusters=3, random_state=10)
+clusterer = KMeans(n_clusters=2, random_state=10)
 df_subset["Cluster"] = clusterer.predict(df_subset.drop(['ORF','Name'],axis=1))
 df_subset
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Exercise 5:** Plot all of the genes with color according to their cluster. 
+# **Problem 2:** Plot all of the genes with color according to their cluster. 
 
 # + slideshow={"slide_type": "subslide"}
 ### YOUR SOLUTION HERE
 ### YOUR SOLUTION HERE
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Exercise 6**: How can you now if you selected the right number of clusters?
+# **Stop and think:** How can you now if you selected the right number of clusters?
 
 # + [markdown] slideshow={"slide_type": "subslide"}
 # ### YOUR SOLUTION HERE
 # ### YOUR SOLUTION HERE
+
+# + [markdown] slideshow={"slide_type": "subslide"}
+# **Exercise 2:** Analyze two clusterings (k=2 and k=3) by calculating the silhouette score.
 
 # + slideshow={"slide_type": "subslide"}
 from sklearn.metrics import silhouette_score
@@ -203,3 +219,6 @@ cluster2 = clusterer2.predict(df_subset.drop(['ORF','Name','Cluster'],axis=1))
 cluster3 = clusterer3.predict(df_subset.drop(['ORF','Name','Cluster'],axis=1))
 print('Score for k=2',silhouette_score(df_subset.drop(['ORF','Name','Cluster'],axis=1), cluster2))
 print('Score for k=3',silhouette_score(df_subset.drop(['ORF','Name','Cluster'],axis=1), cluster3))
+# -
+
+
