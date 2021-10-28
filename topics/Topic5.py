@@ -309,6 +309,7 @@ for j in Dtrimmed.index:
     D.loc[n,j] = D.loc[j,n]
 print("New D")
 print(D)
+print(n)
 find(D,n)
 
 
@@ -360,9 +361,7 @@ G2 = additive_phylogeny(D,len(D)+1)
 show(G2)
 
 # + [markdown] slideshow={"slide_type": "subslide"}
-# **Exercise 4 (extra credit)** Run your new algorithm on SARS data derived from multiple alignment of Spike proteins.
-#
-# This will show up on the grader as incorrect, but I will make it extra credit when moving the grades into Canvas.
+# **Exercise 4.** Run your new algorithm on SARS data derived from multiple alignment of Spike proteins.
 
 # + slideshow={"slide_type": "subslide"}
 import os.path
