@@ -14,6 +14,9 @@ import networkx as nx
 import numpy as np
 import copy
 
+file = f'{DIR}/../data/coronavirus_distance_matrix_additive.txt'
+D_sars = pd.read_csv(file,index_col=0)
+
 def test_exercise_1():
     assert (Assignment5_helper.compute_d(Assignment5_helper.G) == answers['exercise_1']).all().all()
 
@@ -37,7 +40,7 @@ def test_exercise_5():
     assert np.all(nx.adjacency_matrix(Assignment5_helper.additive_phylogeny(Assignment5_helper.D,len(Assignment5_helper.D)+1)).todense() == answers['exercise_5'])
 
 def test_exercise_6():
-    assert np.all(nx.adjacency_matrix(Assignment5_helper.additive_phylogeny(Assignment5_helper.D_sars,len(Assignment5_helper.D_sars)+1)).todense() == answers['exercise_6'])
+    assert np.all(nx.adjacency_matrix(Assignment5_helper.additive_phylogeny(D_sars,len(D_sars)+1)).todense() == answers['exercise_6'])
 
 # git clone https://github.com/anderson-github-classroom/csc-448-student ../csc-448-student && sudo -H pip3 install -r ../csc-448-student/requirements.txt
 
