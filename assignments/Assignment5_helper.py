@@ -86,7 +86,7 @@ def base_case(D):
     return T
 
 def additive_phylogeny(D,new_number):
-    D = D.copy()
+    D = copy.deepcopy(D)
     if len(D) == 2:
         return base_case(D) # Implemented correctly above
     n = D.index[-1]

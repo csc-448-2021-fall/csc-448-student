@@ -21,7 +21,14 @@ def test_exercise_2():
     assert Assignment5_helper.limb(Assignment5_helper.D,"v4") == answers['exercise_2']
 
 def test_exercise_3():
-    assert Assignment5_helper.find(Assignment5_helper.D,"v4") == answers['exercise_3']
+    D=Assignment5_helper.D.copy()
+    limbLength = Assignment5_helper.limb(D,D.index[-1]) # our algorithm will choose the last node
+    n = D.index[-1]
+    Dtrimmed = D.drop(n).drop(n,axis=1)
+    for j in Dtrimmed.index:
+        D.loc[j,n] = D.loc[j,n] - limbLength
+        D.loc[n,j] = D.loc[j,n]
+    assert Assignment5_helper.find(D,"v4") == answers['exercise_3']
 
 def test_exercise_4():
     assert np.all(nx.adjacency_matrix(Assignment5_helper.base_case(Assignment5_helper.D.iloc[:2,:].iloc[:,:2])).todense() == answers['exercise_4'])

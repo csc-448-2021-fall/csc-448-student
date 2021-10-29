@@ -41,20 +41,6 @@ home = str(Path.home()) # all other paths are relative to this path.
 * Apply, analyze, and evaluate evolutionary tree algorithms
 <!-- #endregion -->
 
-<!-- #region slideshow={"slide_type": "slide"} -->
-## Into the algorithms
-<!-- #endregion -->
-
-<!-- #region slideshow={"slide_type": "subslide"} -->
-## Let's talk about a given graph and neighboring leaves
-
-<center>
-${\color{red}{d_{k,m}}} = \dfrac{({\color{purple}{d_{i,m}}} + {\color{red}{d_{k,m}}}) + ({\color{blue}{d_{j,m}}} + {\color{red}{d_{k,m}}}) - ({\color{purple}{d_{i,m}}} + {\color{blue}{d_{j,m}}})}{2} = \dfrac{d_{i,k} +d_{j,k} - d_{i,j}}{2}$
-
-<img src="http://bioinformaticsalgorithms.com/images/Evolution/neighboring_leaves_equality.png" width=500>
-</center>
-<!-- #endregion -->
-
 <!-- #region slideshow={"slide_type": "subslide"} -->
 **Exercise 1** Compute the distances between leaves in a weighted tree
 
@@ -85,6 +71,10 @@ Learning outcomes:
 2. Understanding the Limb Length Theorem in Chapter 7.
 <!-- #endregion -->
 
+```python
+Assignment5_helper.D
+```
+
 ```python slideshow={"slide_type": "subslide"}
 length = Assignment5_helper.limb(Assignment5_helper.D,"v4")
 length
@@ -99,7 +89,7 @@ Output: Return the node names $i,k$ that satisfy $D_{i,k} = D_{i,n} + D_{n,k}$. 
 <!-- #endregion -->
 
 ```python slideshow={"slide_type": "subslide"}
-D=Assignment5_helper.D
+D=Assignment5_helper.D.copy()
 print("Starting D")
 print(D)
 limbLength = Assignment5_helper.limb(D,D.index[-1]) # our algorithm will choose the last node
@@ -122,14 +112,14 @@ Input: Distance matrix $D$ of size $2 \times 2$.
 Output: Return a networkx graph with the correct weight.
 
 ```python
-base_G = Assignment5_helper.base_case(D.iloc[:2,:].iloc[:,:2])
+base_G = Assignment5_helper.base_case(Assignment5_helper.D.iloc[:2,:].iloc[:,:2])
 Assignment5_helper.show(base_G)
 ```
 
 **Exercise 5:** We are ready to put everything together! Implement the full additive phylogeny algorithm from Chapter 7. 
 
 ```python slideshow={"slide_type": "subslide"}
-G2 = Assignment5_helper.additive_phylogeny(D,len(D)+1)
+G2 = Assignment5_helper.additive_phylogeny(Assignment5_helper.D,len(D)+1)
 Assignment5_helper.show(G2)
 ```
 
