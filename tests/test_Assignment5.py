@@ -4,6 +4,8 @@ sys.path.append(".")
 # Import the student solutions
 import Assignment5_helper
 
+import pandas as pd
+
 import pathlib
 DIR=pathlib.Path(__file__).parent.absolute()
 
