@@ -27,7 +27,7 @@ def test_exercise_4():
     assert np.all(nx.adjacency_matrix(Assignment5_helper.base_case(Assignment5_helper.D.iloc[:2,:].iloc[:,:2])).todense() == answers['exercise_4'])
 
 def test_exercise_5():
-    assert np.all(nx.adjacency_matrix(Assignment5_helper.additive_phylogeny(Assignment5_helper.D,len(Assignment5_helper.D)+1)).todense() == answers['answer_exercise_5'])
+    assert np.all(nx.adjacency_matrix(Assignment5_helper.additive_phylogeny(Assignment5_helper.D,len(Assignment5_helper.D)+1)).todense() == answers['exercise_5'])
 
 def test_exercise_6():
     assert np.all(nx.adjacency_matrix(Assignment5_helper.additive_phylogeny(Assignment5_helper.D_sars,len(Assignment5_helper.D_sars)+1)).todense() == answers['exercise_6'])
