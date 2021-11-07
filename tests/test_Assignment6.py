@@ -72,8 +72,13 @@ def test_exercise_7():
     assert answers['exercise7_distance'] == distance
 
 def test_exercise_8():
+    P4_list = [1,-2,-3,4]
+    P4 = pd.Series(P4_list)
+    P5_list = [1,3,2,-4]
+    P5 = pd.Series(P5_list)
     test_edge_cycle = [[1, -3], [-3, -4], [-4, -1], [-1, 4], [4, 2], [2, 1]]
-    checked_cycle, colors = Assignment6_helper.red_blue_cycle_check(Assignment6_helper.G_P4_P5,test_edge_cycle)
+    G_P4_P5 = Assignment6_helper.combine(Assignment6_helper.genome_to_graph([P4]),Assignment6_helper.genome_to_graph([P5]))
+    checked_cycle, colors = Assignment6_helper.red_blue_cycle_check(G_P4_P5,test_edge_cycle)
     assert np.all(answers['exercise8_colors'] == colors)
 
 def test_exercise_9():
