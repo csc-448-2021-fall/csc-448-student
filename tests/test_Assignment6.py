@@ -48,7 +48,7 @@ def test_exercise_5():
     P5_list = [1,3,2,-4]
     P5 = pd.Series(P5_list)
 
-    G_P4_P5 = Assignment6_helper.combine(Assignment6_helper.genome_to_graph([P4]),Lab7.genome_to_graph([P5]))
+    G_P4_P5 = Assignment6_helper.combine(Assignment6_helper.genome_to_graph([P4]),Assignment6_helper.genome_to_graph([P5]))
     answers['exercise5_edge_list'] = fix_edge_list(answers['exercise5_edge_list'])
     edge_list = fix_edge_list(Assignment6_helper.to_edge_list(G_P4_P5))    
     assert set(answers['exercise5_edge_list']) == set(edge_list)
