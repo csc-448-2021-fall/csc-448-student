@@ -23,10 +23,6 @@ jupyter:
 %matplotlib inline
 %load_ext autoreload
 %autoreload 2
-
-graphviz_installed=True
-display_available=True
-from IPython.display import Image
 ```
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
@@ -113,7 +109,7 @@ Take 2 minutes and try to make the trie...
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "fragment"} -->
-<img src="Topic7_example_trie.png" width=200>
+<img src="example_trie.png" width=200>
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
@@ -217,7 +213,19 @@ We just need to simply work through the graph. If we get to a leaf node, then we
 
 ```python slideshow={"slide_type": "subslide"}
 def prefix_trie_matching(text,trie):
-    # Your solution here
+    symbol = text[0]
+    v = "root"
+    i = 0
+    while i < len(text):            
+        if len(list(trie.neighbors(v))) == 0:
+            return symbol
+        else:
+            w = find_edge(trie,v,symbol[-1])
+            if w is None:
+                return None
+            symbol += text[i]
+            i += 1
+            v = w
     return None
             
 print(prefix_trie_matching("bana",trie2))
@@ -325,7 +333,7 @@ If an edge in a trie corresponds to more than one position in text, then we assi
 <!-- #region slideshow={"slide_type": "subslide"} -->
 Here is the pseudocode.
 
-<img src="Topic7_modifiedsuffixtrie.jpg" width=400>
+<img src="modifiedsuffixtrie.jpg" width=400>
 <!-- #endregion -->
 
 <!-- #region slideshow={"slide_type": "subslide"} -->
