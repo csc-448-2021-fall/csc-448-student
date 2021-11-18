@@ -215,7 +215,7 @@ We just need to simply work through the graph. If we get to a leaf node, then we
 def prefix_trie_matching(text,trie):
     symbol = text[0]
     v = "root"
-    i = 1
+    i = 0
     while i < len(text):            
         if len(list(trie.neighbors(v))) == 0:
             return symbol

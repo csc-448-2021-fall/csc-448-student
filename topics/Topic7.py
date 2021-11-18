@@ -198,7 +198,7 @@ show(trie2)
 def prefix_trie_matching(text,trie):
     symbol = text[0]
     v = "root"
-    i = 1
+    i = 0
     while i < len(text):            
         if len(list(trie.neighbors(v))) == 0:
             return symbol
