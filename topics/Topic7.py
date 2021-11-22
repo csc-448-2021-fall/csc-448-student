@@ -331,6 +331,7 @@ def modified_suffix_trie(text):
     return G,leaf_nodes
 
 trie4,leaf_nodes = modified_suffix_trie("panamabananas$")
+display(leaf_nodes)
 show(trie4)
 
 

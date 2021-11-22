@@ -91,6 +91,7 @@ def additive_phylogeny(D,new_number):
         return base_case(D) # Implemented correctly above
     n = D.index[-1]
     limbLength = limb(D,n) # our algorithm will choose the last node
+    print(limbLength)
     Dtrimmed = D.drop(n).drop(n,axis=1)
     for j in Dtrimmed.index:
         D.loc[j,n] = D.loc[j,n] - limbLength
