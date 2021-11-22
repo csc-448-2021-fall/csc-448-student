@@ -27,7 +27,7 @@ def test_exercise_2():
     assert np.all(answer == answers['answer_exercise_2'])
 
 def test_exercise_3():
-    answer = Assignment8_helper.decoding_ideal_spectrum(spectrum5)
+    answer = Assignment8_helper.decoding_ideal_spectrum(spectrum5,debug=False)
     assert len(set(answer).difference(set(answers['answer_exercise_3']))) == 0
 
 def test_exercise_4():

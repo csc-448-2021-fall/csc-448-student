@@ -54,7 +54,7 @@ def ideal_spectrum(peptide,a_mass=a_mass,prefix=True,suffix=True,fragments=None)
     ideal.sort()
     return ideal
 
-def decoding_ideal_spectrum(spectrum,a_mass=a_mass):
+def decoding_ideal_spectrum(spectrum,a_mass=a_mass,debug=False):
     mass_a = {}
     for key in a_mass.keys():
         mass = a_mass[key]
@@ -62,7 +62,8 @@ def decoding_ideal_spectrum(spectrum,a_mass=a_mass):
             mass_a[mass] = []
         mass_a[mass].append(key)
     G = spectrum_graph_construction(spectrum,mass_a=mass_a)
-    show(G)
+    if debug:
+        show(G)
     # Your solution here
     matches = []
     return matches
