@@ -265,18 +265,17 @@ s
 
 # + slideshow={"slide_type": "fragment"}
 ideal_spectrum("GGTTQ")
+# -
 
-# + [markdown] slideshow={"slide_type": "slide"}
 # ## From Ideal to Real Spectra
 
-# + [markdown] slideshow={"slide_type": "subslide"}
 # **Exercise 4**: Convert a peptide into a binary peptide vector.
 #
 # Input: A peptide P.
 #
 # Output: The peptide vector of P as a numpy array.
 
-# + slideshow={"slide_type": "subslide"}
+# +
 import numpy as np
 
 def construct_peptide_vector(peptide,a_mass={"X":4,"Z":5},verbose=False):
@@ -291,14 +290,15 @@ print(peptide_v1)
 display(construct_peptide_vector("XZZXX",verbose=True))
 
 
-# + [markdown] slideshow={"slide_type": "subslide"}
+# -
+
 # **Exercise 5**: Convert a binary vector into a peptide (do the reverse).
 #
 # Input: A numpy binary vector ``p``.
 #
 # Output: A peptide whose binary peptide vector matches ``p``. For masses with more than one amino acid, any choice may be used.
 
-# + slideshow={"slide_type": "subslide"}
+# +
 def construct_peptide_from_vector(p,a_mass={"X":4,"Z":5}):
     peptides = []
     # Your solution here
@@ -310,14 +310,15 @@ peptides6 = construct_peptide_from_vector(p)
 peptides6
 
 
-# + [markdown] slideshow={"slide_type": "subslide"}
+# -
+
 # **Exercise 6:** Peptide Sequencing Problem
 #
 # Input: A spectral vector ``s``.
 #
 # Output: A peptide with maximum score against ``s``. For masses with more than one amino acid, any choice may be used.
 
-# + slideshow={"slide_type": "subslide"}
+# +
 def max_peptide(s,a_mass={"X":4,"Z":5},debug=False):
     peptide = ""
     mass_a = {}
