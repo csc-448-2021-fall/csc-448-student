@@ -19,6 +19,7 @@ def test_exercise_1():
     assert np.all(Assignment7_helper.to_adj(answer).values == answers['answer_exercise_1'].values)
 
 def test_exercise_2():
+    trie2 = Assignment7_helper.trie_construction(Assignment7_helper.patterns2)
     answer = Assignment7_helper.trie_matching("bananablahblahantennanabnablkjdf",Assignment7_helper.trie2)
     assert np.all(tuple(answer) == tuple(answers['answer_exercise_2']))
 
