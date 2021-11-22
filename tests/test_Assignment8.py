@@ -19,7 +19,7 @@ spectrum5 = [57,114,128,215,229,316,330,387,444]
 
 
 def test_exercise_1():
-    answer = Assignment8_helper.spectrum_graph_construction(Assignment8_helper.spectrum1)
+    answer = Assignment8_helper.spectrum_graph_construction(spectrum1)
     assert np.all(Assignment8_helper.to_adj(answer).values == answers['answer_exercise_1'].values)
 
 def test_exercise_2():
