@@ -359,16 +359,3 @@ to_adj(tree).index
 
 # + slideshow={"slide_type": "skip"}
 # Don't forget to push!
-# -
-
-
-
-
-
-
-
-
-
-
-
-

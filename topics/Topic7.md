@@ -393,27 +393,3 @@ to_adj(tree).index
 ```python slideshow={"slide_type": "skip"}
 # Don't forget to push!
 ```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
-
-```python
-
-```
